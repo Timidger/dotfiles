@@ -53,7 +53,7 @@ mod = "Mod4"
 local key = config.key -- Alias key so it's faster to type
 
 way_cooler.terminal = "xfce4-terminal" -- Use the terminal of your choice
-config.bar = "lemonbar"
+way_cooler.bar = "lemonbar"
 
 local keys = {
   -- Open dmenu

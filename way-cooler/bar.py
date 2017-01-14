@@ -14,10 +14,17 @@ def main():
         layout = json.loads(LAYOUT.Debug())
         workspaces = get_workspaces(layout)
         workspaces.sort()
-        funcs = [" ".join(workspaces) + "%{c}",
+        active_workspace = ""
+        try:
+            active_workspace = LAYOUT.ActiveWorkspace()
+        except Exception:
+            pass
+        workspaces = " ".join(workspaces)
+        workspaces = format_workspaces(workspaces, active_workspace)
+        funcs = [workspaces + "%{c}",
                 lambda: get_time() + "%{r}",
                 get_battery]
-        output = ""
+        output = " "
         for func in funcs:
             if type(func) == str:
                 output += func
@@ -29,8 +36,10 @@ def main():
 
 def get_workspaces(layout_json):
     """Gets the workspace names from the layout json"""
+    if not layout_json:
+        return []
     workspaces = layout_json['Root'][0]['Output']
-    return [list(workspace.keys())[0].split('Workspace')[1]
+    return [list(workspace.keys())[0].split('Workspace')[1].strip()
             for workspace in workspaces]
 
 def get_time():
@@ -40,6 +49,15 @@ def get_battery():
     with open("/sys/class/power_supply/BAT0/capacity", "r") as f:
         bat = f.readlines()
     return bat[0].strip() + "% Battery"
+
+def format_workspaces(workspaces, active_workspace):
+    workspaces = "  " + workspaces.replace(" ", "  ") + "  "
+    active_workspace_format = (
+            "%{B#009} " + active_workspace.strip() + " %{B#555}")
+    workspaces = workspaces.replace(" " + active_workspace + " ",
+            active_workspace_format)
+    return workspaces
+
 
 
 if __name__ == "__main__":

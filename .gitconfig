@@ -1,0 +1,24 @@
+[user]
+	email = APragmaticPlace@gmail.com
+	name = Timidger
+
+[push]
+	default = simple
+[core]
+	editor = vim
+	excludesfile = /home/timidger/.gitignore_global
+[credential]
+	helper = netrc -f ~/.netrc.asc -v
+[http]
+	sslVerify = true
+[alias]
+	co = checkout
+	br = branch
+	dif = diff
+	st = status
+	pushf = push --no-verify
+	com = commit -v
+	dc = diff --cached
+	pullff = pull --ff-only
+	pulff = pull --ff-only
+	pulf = pull --ff-only

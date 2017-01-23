@@ -1,0 +1,1 @@
+xmledit-1.9.1.vmb: call delete('/home/timidger/.vim/ftplugin/xml.vim')|call delete('/home/timidger/.vim/doc/xml-plugin.txt')

@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/timidger/.config/sway'
+let g:netrw_dirhist_2='/home/timidger/src/wlc'
+let g:netrw_dirhist_3='/home/timidger/src/wlc/CMake'
+let g:netrw_dirhist_4='/home/timidger/.config/way-cooler'
+let g:netrw_dirhist_5='/home/timidger/.config/i3'
+let g:netrw_dirhist_6='/home/timidger/x-tools/i686-unknown-linux-gnu/lib/gcc/i686-unknown-linux-gnu/6.2.0/plugin/include/config/i386'
+let g:netrw_dirhist_7='/home/timidger/.config/way-cooler'
+let g:netrw_dirhist_8='/home/timidger/src/way-cooler'
+let g:netrw_dirhist_9='/home/timidger/src'

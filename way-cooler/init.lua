@@ -89,7 +89,11 @@ local keys = {
   key({ mod, "Shift" }, "space", "toggle_float_active"),
   key({ mod }, "space", "toggle_float_focus"),
   key({ mod, "Shift" }, "r", "way_cooler_restart"),
-  key({ mod, "Shift" }, "escape", "way_cooler_quit")
+  key({ mod, "Shift" }, "escape", "way_cooler_quit"),
+
+  -- Brightness control stuff
+  key({}, "XF86MonBrightnessDown", function () os.execute("backlight.sh -") end),
+  key({}, "XF86MonBrightnessUp", function () os.execute("backlight.sh +") end),
 
   -- Quitting way-cooler is hardcoded to Alt+Shift+Esc.
   -- This my be modifiable in the future

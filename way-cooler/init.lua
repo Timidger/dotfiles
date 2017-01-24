@@ -54,6 +54,9 @@ local key = config.key -- Alias key so it's faster to type
 
 way_cooler.terminal = "xfce4-terminal" -- Use the terminal of your choice
 way_cooler.bar = "lemonbar"
+way_cooler.border_size = 20 -- The width of the borders between windows
+way_cooler.border_color = 0x386890 -- The color of the borders
+way_cooler.active_border_color = 0x57beb9 -- Color of active container borders
 
 local keys = {
   -- Open dmenu

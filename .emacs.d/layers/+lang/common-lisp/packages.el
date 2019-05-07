@@ -1,6 +1,6 @@
 ;;; packages.el --- Common Lisp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,18 +10,46 @@
 ;;; License: GPLv3
 
 (setq common-lisp-packages
-      '(slime))
+      '(auto-highlight-symbol
+        (common-lisp-snippets :toggle (configuration-layer/package-usedp 'yasnippet))
+        ggtags
+        helm
+        helm-gtags
+        slime
+        slime-company))
+
+(defun common-lisp/post-init-auto-highlight-symbol ()
+  (with-eval-after-load 'auto-highlight-symbol
+    (add-to-list 'ahs-plugin-bod-modes 'lisp-mode)))
+
+(defun common-lisp/init-common-lisp-snippets ())
+
+(defun common-lisp/post-init-helm ()
+  (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
+    "sI" 'spacemacs/helm-slime))
+
+(defun common-lisp/post-init-ggtags ()
+  (add-hook 'common-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun common-lisp/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
+
+(defun common-lisp/init-slime-company ()
+  (setq slime-company-completion 'fuzzy))
 
 (defun common-lisp/init-slime ()
   (use-package slime
     :commands slime-mode
     :init
     (progn
+      (spacemacs/register-repl 'slime 'slime)
       (setq slime-contribs '(slime-fancy
                              slime-indentation
                              slime-sbcl-exts
                              slime-scratch)
             inferior-lisp-program "sbcl")
+      (when (configuration-layer/package-usedp 'slime-company)
+        (push 'slime-company slime-contribs))
       ;; enable fuzzy matching in code buffer and SLIME REPL
       (setq slime-complete-symbol*-fancy t)
       (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
@@ -35,10 +63,10 @@
     :config
     (progn
       (slime-setup)
-      (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
-        (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
       ;; TODO: Add bindings for the SLIME debugger?
       (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
+        "'" 'slime
+
         "cc" 'slime-compile-file
         "cC" 'slime-compile-and-load-file
         "cl" 'slime-load-file
@@ -49,10 +77,9 @@
         "eb" 'slime-eval-buffer
         "ef" 'slime-eval-defun
         "eF" 'slime-undefine-function
-        "ee" 'slime-eval-last-sexp
+        "ee" 'slime-eval-last-expression
         "er" 'slime-eval-region
 
-        "gg" 'slime-inspect-definition
         "gb" 'slime-pop-find-definition-stack
         "gn" 'slime-next-note
         "gN" 'slime-previous-note
@@ -62,6 +89,7 @@
         "hd" 'slime-disassemble-symbol
         "hh" 'slime-describe-symbol
         "hH" 'slime-hyperspec-lookup
+        "hi" 'slime-inspect-definition
         "hp" 'slime-apropos-package
         "ht" 'slime-toggle-trace-fdefinition
         "hT" 'slime-untrace-all
@@ -79,4 +107,14 @@
         "si" 'slime
         "sq" 'slime-quit-lisp
 
-        "tf" 'slime-toggle-fancy-trace))))
+        "tf" 'slime-toggle-fancy-trace)
+      ;; prefix names for which-key
+      (mapc (lambda (x)
+              (spacemacs/declare-prefix-for-mode 'lisp-mode (car x) (cdr x)))
+            '(("mh" . "help")
+              ("me" . "eval")
+              ("ms" . "repl")
+              ("mc" . "compile")
+              ("mg" . "nav")
+              ("mm" . "macro")
+              ("mt" . "toggle"))))))

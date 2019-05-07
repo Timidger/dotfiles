@@ -1,6 +1,6 @@
-;;; extensions.el --- Games Layer extensions File for Spacemacs
+;;; config.el --- Games Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,7 +20,3 @@
   (make-directory spacemacs-games-cache-directory))
 
 (setq helm-games-list nil)
-
-;; Command prefixes
-
-(spacemacs/declare-prefix "aG" "games")

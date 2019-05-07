@@ -1,6 +1,6 @@
 ;;; funcs.el --- C/C++ Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -26,7 +26,7 @@
       (insert-file-contents cc-file)
       ;; Replace relative paths with absolute paths (by @trishume)
       ;; (goto-char (point-min))
-      (while (re-search-forward "\\(-I\\|-isystem\n\\)\\(\\S-\\)" nil t)
+      (while (re-search-forward "\\(-I\\|-isystem\n\\)\\(\\S-+\\)" nil t)
         (replace-match (format "%s%s" (match-string 1)
                                (expand-file-name (match-string 2) invocation-dir))))
       ;; Turn lines into a list

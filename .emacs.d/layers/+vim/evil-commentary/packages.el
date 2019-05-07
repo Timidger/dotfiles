@@ -1,6 +1,6 @@
 ;;; packages.el --- evil-commentary Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,15 +9,15 @@
 ;;
 ;;; License: GPLv3
 
-(setq evil-commentary-packages '(evil-commentary))
-
-(setq evil-commentary-excluded-packages '(evil-nerd-commenter))
-
+(setq evil-commentary-packages
+      '(evil-commentary
+        (evil-nerd-commenter :excluded t)
+        ))
 
 (defun evil-commentary/init-evil-commentary ()
   (use-package evil-commentary
-    :diminish evil-commentary-mode
     :init
     (progn
       (evil-commentary-mode)
-      (spacemacs/set-leader-keys ";" 'evil-commentary))))
+      (spacemacs/set-leader-keys ";" 'evil-commentary))
+    :config (spacemacs|hide-lighter evil-commentary-mode)))

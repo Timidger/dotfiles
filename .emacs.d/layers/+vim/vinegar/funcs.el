@@ -95,7 +95,7 @@
   (dired-omit-mode t)
 
   ;; allow selection with mouse
-  (make-local-variable 'mouse-1-click-follows-link) 
+  (make-local-variable 'mouse-1-click-follows-link)
   (setq mouse-1-click-follows-link nil)
 
   (local-set-key (kbd  "<mouse-1>") 'vinegar/dired-mouse-click)
@@ -128,7 +128,7 @@
           (error "No file chosen"))
       (set-buffer (window-buffer window))
       (goto-char pos)
-      (condition-case ex
+      (condition-case-unless-debug ex
           (progn
             (setq file (dired-get-file-for-visit))
             (dired-find-file-other-window))

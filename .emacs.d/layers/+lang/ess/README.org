@@ -1,14 +1,13 @@
 #+TITLE: ESS (R) layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/r.jpg]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
-   - [[Inferior REPL process][Inferior REPL process]]
-   - [[Helpers][Helpers]]
- - [[Options][Options]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#inferior-repl-process][Inferior REPL process]]
+   - [[#helpers][Helpers]]
+ - [[#options][Options]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -44,11 +43,11 @@ Send code to inferior process with these commands:
 
 ** Helpers
 Helpers for inspecting objects at point are available in R buffers only.
-| Key Binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |
-| ~SPC m h i~ | object introspection popup [ess-R-object-popup][ess-R-object-popup] |
-| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
+
+| Key Binding | Description                                                    |
+|-------------+----------------------------------------------------------------|
+| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view] |
+| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]            |
 
 * Options
 =ess-smart-equals= is disabled by default. In order to enable it, set in your

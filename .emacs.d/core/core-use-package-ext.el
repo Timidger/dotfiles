@@ -1,6 +1,6 @@
 ;;; core-use-package-ext.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -25,7 +25,7 @@ of a package.
 
 Usage:
 
-  (use-package-add-hook package-name
+  (spacemacs|use-package-add-hook package-name
      [:keyword [option]]...)
 
 :pre-init      Code to run before the default `:init' configuration.
@@ -44,7 +44,7 @@ override lazy-loaded settings."
           (let ((hook (intern (format "use-package--%S--%s-hook"
                                       name-symbol
                                       (substring (format "%s" keyword) 1)))))
-            (push `(add-hook ',hook (lambda nil ,@body)) expanded-forms)))))
+            (push `(add-hook ',hook (lambda nil ,@body t)) expanded-forms)))))
     `(progn ,@expanded-forms)))
 
 (provide 'core-use-package-ext)

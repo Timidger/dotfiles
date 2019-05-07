@@ -1,41 +1,40 @@
 #+TITLE: Migrating from Vim
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-* Migrating from vim                                        :TOC_4_org:noexport:
- - [[Purpose of this document][Purpose of this document]]
- - [[Philosophy][Philosophy]]
- - [[Basic orientation][Basic orientation]]
-   - [[Terms][Terms]]
-     - [[Modes vs. States][Modes vs. States]]
-     - [[Layers][Layers]]
-     - [[Micro-states][Micro-states]]
-   - [[Keybinding conventions][Keybinding conventions]]
-   - [[Running commands][Running commands]]
-   - [[Buffer and window management][Buffer and window management]]
-     - [[Buffers][Buffers]]
-       - [[Special buffers][Special buffers]]
-     - [[Windows][Windows]]
-   - [[Files][Files]]
-   - [[The Help System][The Help System]]
-   - [[Exploring][Exploring]]
- - [[Customization][Customization]]
-   - [[The .spacemacs file][The .spacemacs file]]
-   - [[Emacs Lisp][Emacs Lisp]]
-     - [[Variables][Variables]]
-     - [[Keybindings][Keybindings]]
-     - [[Functions][Functions]]
-   - [[Activating a Layer][Activating a Layer]]
-   - [[Creating a Layer][Creating a Layer]]
-   - [[Installing a single package][Installing a single package]]
-   - [[Loading packages][Loading packages]]
-   - [[Uninstalling a package][Uninstalling a package]]
-   - [[Common tweaks][Common tweaks]]
-     - [[Changing the escape key][Changing the escape key]]
-     - [[Changing the colorscheme][Changing the colorscheme]]
-     - [[Nohlsearch][Nohlsearch]]
-     - [[Sessions][Sessions]]
-     - [[Navigating using visual lines][Navigating using visual lines]]
- - [[Other useful links][Other useful links]]
+* Migrating from vim                                        :TOC_4_gh:noexport:
+ - [[#purpose-of-this-document][Purpose of this document]]
+ - [[#philosophy][Philosophy]]
+ - [[#basic-orientation][Basic orientation]]
+   - [[#terms][Terms]]
+     - [[#modes-vs-states][Modes vs. States]]
+     - [[#layers][Layers]]
+     - [[#transient-states][Transient-states]]
+   - [[#keybinding-conventions][Keybinding conventions]]
+   - [[#running-commands][Running commands]]
+   - [[#buffer-and-window-management][Buffer and window management]]
+     - [[#buffers][Buffers]]
+       - [[#special-buffers][Special buffers]]
+     - [[#windows][Windows]]
+   - [[#files][Files]]
+   - [[#the-help-system][The Help System]]
+   - [[#exploring][Exploring]]
+ - [[#customization][Customization]]
+   - [[#the-spacemacs-file][The .spacemacs file]]
+   - [[#emacs-lisp][Emacs Lisp]]
+     - [[#variables][Variables]]
+     - [[#keybindings][Keybindings]]
+     - [[#functions][Functions]]
+   - [[#activating-a-layer][Activating a Layer]]
+   - [[#creating-a-layer][Creating a Layer]]
+   - [[#installing-a-single-package][Installing a single package]]
+   - [[#loading-packages][Loading packages]]
+   - [[#uninstalling-a-package][Uninstalling a package]]
+   - [[#common-tweaks][Common tweaks]]
+     - [[#changing-the-escape-key][Changing the escape key]]
+     - [[#changing-the-colorscheme][Changing the colorscheme]]
+     - [[#nohlsearch][Nohlsearch]]
+     - [[#sessions][Sessions]]
+     - [[#navigating-using-visual-lines][Navigating using visual lines]]
+ - [[#other-useful-links][Other useful links]]
 
 * Purpose of this document
 This document is intended to supplement the Spacemacs documentation by bridging
@@ -61,7 +60,7 @@ for new users. This section attempts to clear up any confusion.
 
 *** Modes vs. States
 In vim you have various editing modes like =insert mode= and =visual mode= to
-manipulate text. In Emacs, we have [[./DOCUMENTATION.org#states][states]]. These are equivalent to vim modes.
+manipulate text. In Emacs, we have [[file:DOCUMENTATION.org::#states][states]]. These are equivalent to vim modes.
 For example, =evil-insert-state= is the same as =insert-mode= in vim.
 
 A =minor-mode= in Emacs is like a feature that is activated. For example,
@@ -80,27 +79,27 @@ several packages that integrate well with each other. For example, the =python=
 layer includes support for auto-completion, documentation look-up, tests, and
 much more by using several different packages. This keeps you from thinking
 about what packages to install, and instead worry about what features you want.
-More information on layers can be found in the [[./VIMUSERS.org#customization][customization]] section and in the
-[[./DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[file:LAYERS.org][here]].
+More information on layers can be found in the [[#customization][customization]] section and in the
+[[file:DOCUMENTATION.org::#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[file:LAYERS.org][here]].
 
-*** Micro-states
-Spacemacs provides a special functionality called micro-states. Micro-states
+*** Transient-states
+Spacemacs provides a special functionality called transient-states. Transient-states
 allow similar commands to be run in succession without repeatedly pressing the
-~<Leader>~ key. Micro-states are usually triggered by using a keybinding with the
+~<Leader>~ key. Transient-states are usually triggered by using a keybinding with the
 following pattern: ~<Leader> <group> .~ where group is the category the
-micro-state falls under. When in a micro-state you will see documentation at the
-bottom of your window. To exit a micro-state press ~q~.
+transient-state falls under. When in a transient-state you will see documentation at the
+bottom of your window. To exit a transient-state press ~q~.
 
-#+CAPTION: Micro-state documentation window
+#+CAPTION: Transient-state documentation window
 
-[[file:img/spacemacs-scale-micro-state.png]]
+[[file:img/spacemacs-scale-transient-state.png]]
 
 ** Keybinding conventions
 Spacemacs uses ~SPC~ as its ~<Leader>~ key. This document will use ~SPC~ to refer to
 the ~<Leader>~ key. All keybindings are mnemonic and are organized under the
 ~<Leader>~ key. For example, the keybindings for language-specific commands are
 always under the ~SPC m~ prefix. A full list of conventions used in Spacemacs is
-[[./CONVENTIONS.org][here]]. Note that all keybindings can be changed.
+[[file:CONVENTIONS.org][here]]. Note that all keybindings can be changed.
 
 Spacemacs uses [[https://github.com/justbur/emacs-which-key][which-key]] to show available keybindings after a delay:
 
@@ -109,12 +108,12 @@ Spacemacs uses [[https://github.com/justbur/emacs-which-key][which-key]] to show
 [[file:img/which-key.png]]
 
 ** Running commands
-Emacs commands can be run using ~SPC :~. This will pop up a buffer using [[https://github.com/emacs-helm/helm][Helm]]
+Emacs commands can be run using ~SPC SPC~. This will pop up a buffer using [[https://github.com/emacs-helm/helm][Helm]]
 which can be used to run any Emacs command. You can also run many ex commands
 using ~:~, just like in vim.
 
 Note: You can run Emacs interactive commands using ~:~, but you cannot run ex
-commands using ~SPC :~.
+commands using ~SPC SPC~.
 
 ** Buffer and window management
 *** Buffers
@@ -125,17 +124,20 @@ are located under the ~SPC b~ prefix.
 |---------------------------+------------------------------------------------------|
 | ~SPC b b <buffer-name>~   | Create a buffer named =<buffer-name>=.               |
 | ~SPC b b~                 | Search through open buffers and recent files.        |
-| ~SPC b n~ or ~:bnext~     | Switch to the next buffer. (See [[*Special%20buffers][Special buffers]])     |
-| ~SPC b p~ or ~:bprevious~ | Switch to the previous buffer. (See [[*Special%20buffers][Special buffers]]) |
+| ~SPC b n~ or ~:bnext~     | Switch to the next buffer. (See [[#special-buffers][Special buffers]])     |
+| ~SPC b p~ or ~:bprevious~ | Switch to the previous buffer. (See [[#special-buffers][Special buffers]]) |
 | ~SPC b d~ or ~:bdelete~   | Kill current buffer.                                 |
-| ~SPC b k~                 | Search for a buffer to kill.                         |
-| ~SPC b K~                 | Kill all buffers except the current buffer.          |
-| ~SPC b .~                 | Buffer micro-state.                                  |
+| ~SPC b C-d~               | Kill buffers using a regular expression.             |
+| ~SPC b m~                 | Kill all buffers except the current buffer.          |
+| ~SPC b .~                 | Buffer transient-state.                              |
 
 **** Special buffers
+:PROPERTIES:
+:CUSTOM_ID: special-buffers
+:END:
 By default Emacs creates a lot of buffers that most people will never need, like
 =*Messages*=. Spacemacs automatically ignores these when using these
-key bindings. More information can be found [[./DOCUMENTATION.org#special-buffers][here]].
+key bindings. More information can be found [[file:DOCUMENTATION.org::#special-buffers][here]].
 
 *** Windows
 Windows are like splits in vim. They are useful for editing multiple files at
@@ -147,7 +149,7 @@ once. All window keybindings are under the ~SPC w~ prefix.
 | ~SPC w s~ or ~:split~  | Opens a horizontal split below.      |
 | ~SPC w h/j/k/l~        | Navigate among windows.              |
 | ~SPC w H/J/K/L~        | Move the current window.             |
-| ~SPC w .~              | Window micro-state.                  |
+| ~SPC w .~              | Window transient-state.              |
 
 ** Files
 All file commands in Spacemacs are available under the ~SPC f~ prefix.
@@ -188,13 +190,16 @@ explore:
 | ~SPC ?~     | Lists all keybindings.                                        |
 
 * Customization
+:PROPERTIES:
+:CUSTOM_ID: customization
+:END:
 ** The .spacemacs file
 When you first start spacemacs, you will be prompted to choose an editing style.
 If you are reading this, you likely want to choose the vim style. A =.spacemacs=
 file will be created with the appropriate style selected. Most trivial
 configuration will go in this file.
 
-There are four top-level function in the file: =dotspacemacs/layers=,
+There are four top-level functions in the file: =dotspacemacs/layers=,
 =dotspacemacs/init=, =dotspacemacs/user-init= and =dotspacemacs/user-config=.
 The =dotspacemacs/layers= function exist only to enable and disable layers and
 packages. The =dotspacemacs/init= function is run before anything else during
@@ -234,7 +239,7 @@ built-in =define-key= function is the best way to do that.
 #+begin_src emacs-lisp
   (define-key map new-keybinding function) ; Syntax
   ;; Map H to go to the previous buffer in normal mode
-  (define-key evil-normal-state-map (kbd "H") 'spacemacs/previous-useful-buffer)
+  (define-key evil-normal-state-map (kbd "H") 'previous-buffer)
   ;; Mapping keybinding to another keybinding
   (define-key evil-normal-state-map (kbd "H") (kbd "^")) ; H goes to beginning of the line
 #+end_src
@@ -248,7 +253,7 @@ To map ~<Leader>~ keybindings, use the =spacemacs/set-leader-keys= function.
 #+begin_src emacs-lisp
   (spacemacs/set-leader-keys key function) ; Syntax
   ;; Map killing a buffer to <Leader> b c
-  (spacemacs/set-leader-keys "bc" 'kill-this-buffer)
+  (spacemacs/set-leader-keys "bc" 'spacemacs/kill-this-buffer)
   ;; Map opening a link to <Leader> o l only in org-mode (works for any major-mode)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
     "ol" 'org-open-at-point)
@@ -287,6 +292,9 @@ Here is an example of a function that is useful in real life:
 #+end_src
 
 ** Activating a Layer
+:PROPERTIES:
+:CUSTOM_ID: activating-a-layer
+:END:
 As said in the terms section, layers provide an easy way to add features.
 Activating a layer is done in the =.spacemacs= file. In the file search for the
 =dotspacemacs-configuration-layers= variable. By default, it should look like
@@ -315,8 +323,8 @@ h SPC~.
 ** Creating a Layer
 To group configuration or when configuration doesn't fit well in your
 =.spacemacs= file, you can create a configuration layer. Spacemacs provides a
-builtin command to generate the layer boilerplate:
-~SPC :configuration-layer/create-layer~. This generates a folder that looks like this:
+builtin command to generate the layer boilerplate: ~SPC SPC
+configuration-layer/create-layer~. This generates a folder that looks like this:
 
 #+BEGIN_EXAMPLE
     [layer-name]
@@ -359,16 +367,16 @@ execute code before or after a package loads. It would look like this:
 
 **Note**: Only one layer can have a =init= function for a package. If you want
 to override the configuration of a package in another layer, use a
-=<layer-name>/pre-init= function in addition to [[file:LAYERS.org#use-package-hooks][use-package hooks]].
+=<layer-name>/pre-init= function in addition to [[file:LAYERS.org::#use-package-hooks][use-package hooks]].
 
 If a package is not available on MELPA, you must use a local package or a
-package recipe. For more details see [[file:LAYERS.org#anatomy-of-a-layer][anatomy of a layer]].
+package recipe. For more details see [[file:LAYERS.org::#anatomy-of-a-layer][anatomy of a layer]].
 
-Make sure you [[Activating a Layer][add]] your layer to your =.spacemacs= file and restart to
+Make sure you [[#activating-a-layer][add]] your layer to your =.spacemacs= file and restart to
 activate it.
 
 A detailed description of the loading process and how layers work can be found in
-[[file:LAYERS.org][LAYERS.org]].
+the [[file:LAYERS.org][configuration layers documentation.]]
 
 ** Installing a single package
 Sometimes creating a layer is a bit overkill. Maybe you just want one package
@@ -376,9 +384,12 @@ and don't want to maintain a whole layer. Spacemacs provides a variable in the
 =dotspacemacs/layers= function in =.spacemacs= called
 =dotspacemacs-additional-packages=. Just add a package name to the list and it
 will be installed when you restart. Loading the package is covered in the next
-[[Loading packages][section]].
+[[#loading-packages][section]].
 
 ** Loading packages
+:PROPERTIES:
+:CUSTOM_ID: loading-packages
+:END:
 Ever wonder how Spacemacs can load over a 100 packages in just a few seconds?
 Such low loading times must require some kind of unreadable black magic that no
 one can understand. Thanks to [[https://github.com/jwiegley/use-package][use-package]], this is not true. It is a package
@@ -411,6 +422,9 @@ This is just a very basic overview of =use-package=. There are many other ways
 to control how a package loads using it that aren't covered here.
 
 ** Uninstalling a package
+:PROPERTIES:
+:CUSTOM_ID: uninstalling-a-package
+:END:
 Spacemacs provides a variable in the =dotspacemacs/init= function in
 =.spacemacs= called =dotspacemacs-excluded-packages=. Just add a package name to
 the list and it will be uninstalled when you restart.
@@ -450,7 +464,6 @@ that is loaded at startup. Here is an example:
                                           gotham)))
 #+end_src
 
-
 All installed themes can be listed and chosen using the ~SPC T h~ keybinding.
 
 *** Nohlsearch
@@ -459,7 +472,7 @@ when you are not navigating between them. You can use ~SPC s c~ or ~:nohlsearch~
 to disable search result highlighting.
 
 To disable the result highlighting when it is not needed anymore automatically,
-you can [[Uninstalling a package][uninstall]] the =evil-search-highlight-persist= package.
+you can [[#uninstalling-a-package][uninstall]] the =evil-search-highlight-persist= package.
 
 *** Sessions
 Spacemacs does not automatically restore your windows and buffers when you

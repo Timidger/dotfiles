@@ -1,14 +1,44 @@
+;;; packages.el --- Go Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (setq go-packages
       '(
         company
-        company-go
+        (company-go :toggle (configuration-layer/package-usedp 'company))
         flycheck
-        go-mode
+        (flycheck-gometalinter :toggle (and go-use-gometalinter
+                                            (configuration-layer/package-usedp
+                                             'flycheck)))
+        ggtags
+        helm-gtags
         go-eldoc
+        go-mode
+        go-guru
+        (go-rename :location local)
         ))
 
+
+(defun go/post-init-company ()
+  (spacemacs|add-company-hook go-mode))
+
+(defun go/init-company-go ()
+  (use-package company-go
+    :defer t
+    :init
+    (progn
+      (setq company-go-show-annotation t)
+      (push 'company-go company-backends-go-mode))))
+
 (defun go/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'go-mode-hook))
+  (spacemacs/add-flycheck-hook 'go-mode))
 
 (defun go/init-go-mode()
   (when (memq window-system '(mac ns x))
@@ -18,6 +48,12 @@
 
   (use-package go-mode
     :defer t
+    :init
+    (progn
+      (defun spacemacs//go-set-tab-width ()
+        "Set the tab width."
+        (setq-local tab-width go-tab-width))
+      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width))
     :config
     (progn
       (add-hook 'before-save-hook 'gofmt-before-save)
@@ -78,7 +114,7 @@
         "ed" 'go-download-play
         "xx" 'spacemacs/go-run-main
         "ga" 'ff-find-other-file
-        "gg" 'godef-jump
+        "gc" 'go-coverage
         "tt" 'spacemacs/go-run-test-current-function
         "ts" 'spacemacs/go-run-test-current-suite
         "tp" 'spacemacs/go-run-package-tests
@@ -87,13 +123,36 @@
 (defun go/init-go-eldoc()
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun go/post-init-company ()
-    (spacemacs|add-company-hook go-mode))
+(defun go/init-go-guru()
+  (spacemacs/declare-prefix-for-mode 'go-mode "mf" "guru")
+  (spacemacs/set-leader-keys-for-major-mode 'go-mode
+    "fd" 'go-guru-describe
+    "ff" 'go-guru-freevars
+    "fi" 'go-guru-implements
+    "fc" 'go-guru-peers
+    "fr" 'go-guru-referrers
+    "fj" 'go-guru-definition
+    "fp" 'go-guru-pointsto
+    "fs" 'go-guru-callstack
+    "fe" 'go-guru-whicherrs
+    "f<" 'go-guru-callers
+    "f>" 'go-guru-callees
+    "fo" 'go-guru-set-scope))
 
-  (defun go/init-company-go ()
-    (use-package company-go
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (push 'company-go company-backends-go-mode))))
+(defun go/init-go-rename()
+  (use-package go-rename
+    :init
+    (spacemacs/declare-prefix-for-mode 'go-mode "mr" "rename")
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode "rn" 'go-rename)))
+
+(defun go/init-flycheck-gometalinter()
+  (use-package flycheck-gometalinter
+    :defer t
+    :init
+    (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
+
+(defun go/post-init-ggtags ()
+  (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun go/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))

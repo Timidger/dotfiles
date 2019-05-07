@@ -1,20 +1,19 @@
 #+TITLE: Common Lisp layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/slime.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
-   - [[Working with lisp files (barfage, slurpage & more)][Working with lisp files (barfage, slurpage & more)]]
-   - [[Leader][Leader]]
-     - [[Help][Help]]
-     - [[Evaluation][Evaluation]]
-     - [[REPL][REPL]]
-     - [[Compile][Compile]]
-     - [[Navigation][Navigation]]
-     - [[Macroexpansion][Macroexpansion]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
+   - [[#leader][Leader]]
+     - [[#help][Help]]
+     - [[#evaluation][Evaluation]]
+     - [[#repl][REPL]]
+     - [[#compile][Compile]]
+     - [[#navigation][Navigation]]
+     - [[#macroexpansion][Macroexpansion]]
 
 * Description
 A Spacemacs contribution layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
@@ -54,6 +53,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m h a~ | SLIME apropos                                           |
 | ~SPC m h d~ | Disassemble symbol at point                             |
 | ~SPC m h h~ | Describe symbol at point                                |
+| ~SPC m h i~ | Inspect definition                                      |
 | ~SPC m h H~ | Hyperspec lookup symbol at point                        |
 | ~SPC m h p~ | Browse apropos results for a package's exported symbols |
 | ~SPC m h t~ | Toggle tracing of the function at point                 |
@@ -95,10 +95,9 @@ As this state works the same for all files, the documentation is in global
 
 *** Navigation
 
-
 | Key Binding               | Description        |
 |---------------------------+--------------------|
-| ~SPC m g g~               | Inspect definition |
+| ~SPC m g g~               | Go to definition   |
 | ~SPC m g b~               | Go back            |
 | ~SPC m g n~               | Next note          |
 | ~SPC m g N~ or ~SPC m g p | Previous note      |

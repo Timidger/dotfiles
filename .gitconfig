@@ -1,14 +1,12 @@
 [user]
 	email = APragmaticPlace@gmail.com
 	name = Timidger
-
 [push]
 	default = simple
 [core]
 	editor = vim
 	excludesfile = /home/timidger/.gitignore_global
-[credential]
-	helper = netrc -f ~/.netrc.asc -v
+	pager = less -F -X
 [http]
 	sslVerify = true
 [alias]
@@ -16,9 +14,11 @@
 	br = branch
 	dif = diff
 	st = status
-	pushf = push --no-verify
-	com = commit -v
+	pushf = push --force-with-lease
+	com = commit -v -S
 	dc = diff --cached
-	pullff = pull --ff-only
-	pulff = pull --ff-only
-	pulf = pull --ff-only
+[grep]
+	lineNumber = true
+[commit]
+	gpgsign = true
+	verbose = true

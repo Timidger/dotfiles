@@ -148,7 +148,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("inconsolata"
-                               :size 16
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -318,10 +318,10 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
 
-  ;(add-hook 'c-mode-common-hook (lambda () (setq c-syntactic-indentation nil)))
   ; Set my weird, not quite linux c code styling
   (c-add-style "sircmpwn"
 	'((c-basic-offset . 4)
+      (c-tab-always-indent        . t)
 	 (c-comment-only-line-offset . 0)
 	 (c-hanging-braces-alist
 	  (brace-list-open)
@@ -331,24 +331,27 @@ you should place your code here."
 	  (arglist-cont-nonempty))
 	 (c-cleanup-list brace-else-brace)
 	 (c-offsets-alist
-	  (arglist-intro . ++)
-	  (arglist-cont . ++)
 	  (arglist-cont-nonempty . ++)
+	  (statement-cont . ++)
+	  (arglist-intro . ++)
 	  (arglist-close . ++)
-	  (statement-block-intro . +)
+	  (arglist-cont . ++)
+      (statement-block-intro . +)
 	  (knr-argdecl-intro . 0)
 	  (substatement-open . 0)
 	  (substatement-label . 0)
-	  (label . 0)
-	  (statement-cont . +))))
+	  (label . 0))))
+  ;; Make tabs happen in C
+  (defun force-tabs () (setq indent-tabs-mode t))
+  (add-hook 'c-mode-common-hook 'force-tabs)
 
   (setq-default c-offsets-alist '((brace-list-intro . +)))
   (setq-default c-default-style "sircmpwn")
   (autoload 'auto-make-header "header2")
   (add-hook 'c-mode-common-hook   'auto-make-header)
   (setq-default c-basic-offset 4
-                tab-width 4
-                indent-tabs-mode t)
+                tab-width 4)
+
   (c-set-offset 'brace-list-intro '+)
   (setq mode-require-final-newline t)
   ; dumb jump config
@@ -387,12 +390,13 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-	("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(flycheck-c/c++-cppcheck-executable "")
+ '(lua-indent-level 4)
  '(package-selected-packages
    (quote
-	(flycheck-rust flycheck-pos-tip flycheck vmd-mode go-guru go-eldoc go-mode utop tuareg caml ocp-indent merlin flyspell-correct-helm flyspell-correct auto-dictionary gmail-message-mode ham-mode html-to-markdown flymd edit-server pos-tip dash-functional ghub cmake-mode winum helm-gtags ggtags yaml-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode smeargle orgit org magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic csv-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode mmm-mode markdown-toc markdown-mode gh-md toml-mode racer cargo rust-mode lua-mode racket-mode faceup ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+    (flycheck-rust flycheck-pos-tip flycheck vmd-mode go-guru go-eldoc go-mode utop tuareg caml ocp-indent merlin flyspell-correct-helm flyspell-correct auto-dictionary gmail-message-mode ham-mode html-to-markdown flymd edit-server pos-tip dash-functional ghub cmake-mode winum helm-gtags ggtags yaml-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode smeargle orgit org magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic csv-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode mmm-mode markdown-toc markdown-mode gh-md toml-mode racer cargo rust-mode lua-mode racket-mode faceup ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
  '(require-final-newline t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

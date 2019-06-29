@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     (c-c++ :variables c-c++-default-mode-for-headers 'c-mode)
 	 autoheader
      go
      ocaml
@@ -344,6 +345,14 @@ you should place your code here."
   ;; Make tabs happen in C
   (defun force-tabs () (setq indent-tabs-mode t))
   (add-hook 'c-mode-common-hook 'force-tabs)
+  ;; Use clang format on save
+  (defun format-if-in-way-cooler ()
+    (let ((extension (file-name-extension (buffer-file-name))))
+      (when (and (or (string= extension "c") (string= extension "h"))
+                 (string-match-p  "/home/.*/src/way-cooler.*" (buffer-file-name)))
+        (clang-format-buffer))))
+  (defun c-format-on-save () (add-hook 'before-save-hook 'format-if-in-way-cooler))
+  (add-hook 'c-mode-common-hook 'c-format-on-save)
 
   (setq-default c-offsets-alist '((brace-list-intro . +)))
   (setq-default c-default-style "sircmpwn")

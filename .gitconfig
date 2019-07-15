@@ -14,11 +14,16 @@
 	br = branch
 	dif = diff
 	st = status
+	s = status
 	pushf = push --force-with-lease
 	com = commit -v -S
 	dc = diff --cached
+	# Check out branch
+	cop = "!f() { git fetch origin pull/${1}/head:${2}; git checkout ${2}; }; f"
 [grep]
 	lineNumber = true
 [commit]
 	gpgsign = true
 	verbose = true
+[pull]
+	rebase = true

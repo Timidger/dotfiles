@@ -307,8 +307,8 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (setq x-select-enable-clipboard t)
-  (setq x-select-enable-primary t)
-  )
+  ;; This is going to ensure it doesn't auto copy when highlighted
+  (setq x-select-enable-primary nil))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.

@@ -20,6 +20,8 @@
 	dc = diff --cached
 	# Check out branch
 	cop = "!f() { git fetch origin pull/${1}/head:${2}; git checkout ${2}; }; f"
+	# Replace text
+	sed = "!f() { git grep -rl ${1} . | xargs sed -i \"s/${1}/${2}/g\"; }; f"
 [grep]
 	lineNumber = true
 [commit]

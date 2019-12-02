@@ -161,3 +161,4 @@ let g:syntastic_check_on_wq = 0
 "let g:rustc_path=$HOME.'/.cargo/bin/rustc'
 
 colorscheme darkblue
+map Q <Nop>

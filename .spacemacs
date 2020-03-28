@@ -306,6 +306,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (load-file "~/src/hare-mode/hare-mode.el")
   (setq x-select-enable-clipboard t)
   ;; This is going to ensure it doesn't auto copy when highlighted
   (setq x-select-enable-primary nil))

@@ -379,6 +379,10 @@ you should place your code here."
   (spacemacs/set-leader-keys "gd" 'dumb-jump-go)
   (define-key evil-normal-state-map "gd" 'dumb-jump-go)
 
+  ;; Use imenu instead
+  ;(spacemacs/set-leader-keys "gd" 'spacemacs/helm-jump-in-buffer)
+  ;(define-key evil-normal-state-map "gd" 'spacemacs/helm-jump-in-buffer)
+
 
   (setq-default rust-enable-racer t)
   (linum-mode)
